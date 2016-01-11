@@ -46,7 +46,7 @@ AWKPROG='
 
 make -j8 || exit
 
-for APP in 6 7 81 82 9 10 11; do
+for APP in 6 7 8 8.1 8.2 9 10 11; do
 
 	PURGE_LINE=$(for i in `seq $RUNS`; do
 		./PURGEDemo $APP purge 2>/dev/null
@@ -59,5 +59,5 @@ for APP in 6 7 81 82 9 10 11; do
 	echo $PURGE_LINE $OGRE_LINE | awk '{printf "\\begin{table}[htpb]\n\t\\center\n\t\\caption{Performance metrics for TestScene'$APP'}\n\t\\begin{tabular}{l | l | l | l}\n\t\t& without PURGE & with PURGE & relative value\\\\ \\hline\n\t\tFrames per second & %.2f & %.2f & %.2f\\%%\\\\\n\t\tPeak memory usage & %d & %d & %.2f\\%%\\\\\n\t\\end{tabular}\n\t\\label{tbl:Performance'$APP'}\n\\end{table}\n", $3, $1, (100 * $1 / $3), $4, $2, (100 * $2 / $4)}'
 	echo
 
-done
+done | tee benchmark.out
 
