@@ -31,3 +31,12 @@
 CMakeCache.txt
 CMakeFiles
 cmake_install.cmake
+
+# Dia backups
+*.dia~
+
+# Ogre log
+Ogre.log
+
+# Temporary files created during pdf generation
+complang-eps-converted-to.pdf
