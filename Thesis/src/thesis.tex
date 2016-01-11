@@ -1,0 +1,164 @@
+%\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,11pt,twoside]{memoir}
+	\chapterstyle{veelo}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[compact]{titlesec}
+\usepackage{graphicx}
+%\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage[margin=1cm,font=footnotesize,labelfont=bf]{caption}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{nicefrac}
+
+% stuff from TU templates
+
+	\usepackage{pgf}					
+	\usepackage{tikz}					% tikz graphics
+	\usetikzlibrary{arrows,automata}
+
+	\usepackage{TU/TUINFDA}
+	\usepackage{ngerman}
+	\usepackage[ngerman]{babel}
+	\usepackage{bibgerm,cite}       % Deutsche Bezeichnungen, Automatisches Zusammenfassen von Literaturstellen
+	\usepackage[ngerman]{varioref}  % Querverweise
+
+	\thesistitle{PURGE}
+	\thesissubtitle{Design and Implementation of a High-Level Graphics Engine} % optional
+	\thesisdate{05.09.2012}
+
+	% all titles and designations have to be gender-related!
+	\thesisdegree{Diplom-Ingenieur}{Diplom-Ingenieur}
+	\thesiscurriculum{Software Engineering and Internet Computing}{Software Engineering and Internet Computing} % your study
+	\thesisverfassung{Verfasser} % Verfasser
+	\thesisauthor{Necdet Can Atesman} % your name
+	\thesisauthoraddress{Hietzinger Kai 71-73/9, 1130 Wien} % your address
+	\thesismatrikelno{0004289} % your registration number
+
+	\thesisbetreins{a.o.Univ.Prof. DI Dr.tech. Franz Puntigam}
+	\thesisbetrzwei{}
+	\thesisbetrdrei{} % optional
+
+	% define page numbering styles
+	\makepagestyle{numberCorner}
+	\makeevenfoot{numberCorner}{\thepage}{}{}
+	\makeoddfoot{numberCorner}{}{}{\thepage}
+
+
+%\renewcommand{\baselinestretch}{1.5}
+
+%\newenvironment{smalllist}{\begin{list}{$\bullet$}{}}{\end{list}}
+%\newenvironment{smalllist2}{\begin{list}{$\diamond$}{\topsep 0cm}}{\end{list}}
+\newenvironment{smalllist}{\begin{list}{$\bullet$}{\itemsep 0cm \parskip 0pt}}{\end{list}}
+\newenvironment{smalllist2}{\begin{list}{$\diamond$}{\itemsep 0cm\topsep 0cm}}{\end{list}}
+\newenvironment{numlist}{
+	\begin{enumerate}
+	\setlength{\itemsep}{1pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+}{
+	\end{enumerate}
+}
+%\newenvironment{tightlist}{\begin{list}{$\diamond$}{\itemsep 0cm\topsep 0cm\parsep 0cm}}{\end{list}}
+\newenvironment{biglist}{\begin{list}{$\bullet$}{}}{\end{list}}
+
+\renewcommand{\ttdefault}{pcr}\par
+\newcommand{\termdef}[1]{\label{term:#1}\emph{#1}}
+\newcommand{\term}[1]{\hyperref[term:#1]{#1}}
+%\newcommand{\comment}[1]{}
+\newcommand{\mycomment}[1]{\textcolor{darkgray}{(\footnotesize #1)}}
+\newcommand{\needfig}{\textcolor{darkred}{\footnotesize \#Figure}}
+%\newcommand{\needref}{}
+\newcommand{\needref}{\textcolor{darkred}{$^{ref}$}}
+\newcommand{\rephrase}{}
+\newcommand{\inlinecode}[1]{\lstinline[breaklines=true]|#1|}
+%\newcommand{\inlinecode}[1]{\texttt{#1}}
+\newcommand{\classname}[1]{\inlinecode{#1}}
+\newcommand{\nullptr}{\emph{NULL} }
+\newcommand{\stub}[1]{\textcolor{darkgray}{\footnotesize expand me: #1}}
+\newcommand{\degreenospace}{$\,^{\circ}$}
+\newcommand{\degree}{$\,^{\circ}$ }
+%\newcommand{\vect}[3]{$\begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}$}
+\newcommand{\vect}[3]{($#1$|$#2$|$#3$)}
+\newcommand{\sfrac}[2]{$\nicefrac{#1}{#2}$}
+
+\setlength{\parskip}{0.4em}
+
+\usepackage{listings}
+	\lstloadlanguages{C++}
+	\lstset{language=C++,basicstyle=\ttfamily\small}
+	\lstnewenvironment{stacktrace}[1][]{\lstset{frame=single,gobble=#1,tabsize=1,numbers=left,numbersep=7pt}\renewcommand{\baselinestretch}{1.2}}{\renewcommand{\baselinestretch}{1.5}}
+	\lstnewenvironment{code}[1][]{\lstset{frame=tRBl,gobble=#1,tabsize=1,numbers=left,numbersep=7pt,aboveskip=1.2em,belowskip=0.8em}}{}
+
+\definecolor{darkblue}{rgb}{0,0,.5}
+\definecolor{darkred}{rgb}{.5,0,0}
+\definecolor{darkgray}{rgb}{.5,.5,.5}
+\hypersetup{colorlinks=true,breaklinks=true,linkcolor=darkblue,menucolor=darkblue,urlcolor=darkblue}
+
+%\setcounter{secnumdepth}{3}
+
+\begin{document}
+
+	\captionnamefont{\bfseries}
+	\frontmatter
+	\pagenumbering{roman}
+
+	\input{TU/titlepage}
+	\input{TU/titlepage_en}
+	\cleardoublepage
+	\selectlanguage{ngerman}
+	\input{TU/chapters/erklaerung}
+	\selectlanguage{english}
+	\cleardoublepage
+	\input{abstract_en}
+	\cleardoublepage
+	\selectlanguage{ngerman}
+	\input{abstract_de}
+	\selectlanguage{english}
+
+	\setcounter{tocdepth}{1}
+	\cleardoublepage
+	\pagestyle{numberCorner}
+	\tableofcontents*
+
+	\mainmatter
+	\pagenumbering{arabic}
+	\pagestyle{numberCorner}
+
+	\chapter{Introduction}
+	\input{Introduction/motivation}
+	\input{Introduction/question}
+	\input{Introduction/approach}
+	\chapter{Related Work}
+	\input{Related/index}
+	\chapter{Scope}
+	\input{Scope/engines}
+	\input{Scope/features}
+	\input{Scope/usecases}
+	\chapter{Design}
+	\input{Design/defaults}
+	\input{Design/renderer}
+	\input{Design/loop}
+	\input{Design/windows}
+	\input{Design/relativeorientation}
+	\input{Design/scenegraph}
+	\input{Design/scenemodification}
+	\chapter{Implementation}
+	\input{Implementation/introduction}
+	\input{Implementation/scenegraph}
+	\input{Implementation/renderer}
+	\input{Implementation/ogrerenderer}
+	\input{Implementation/loop}
+	\chapter{Evaluation}
+	\input{Evaluation/tests}
+	\input{Conclusion}
+
+	\appendix
+	\bibliographystyle{plain}
+	\bibliography{thesis}
+
+\end{document}
+

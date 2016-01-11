@@ -1,0 +1,18 @@
+\chapter{Conclusion}
+
+	The biggest issue with a learning-by-doing approach in the usage of graphics engines is the huge amount of knowledge their APIs assume. We have managed to create an API that conceals as much of these domain-specific entities as possible and allows the learning developer to choose the order in which he can pick up all these aspects unknown to him.
+
+	We found that we could create whole scenes without the explicit need of scene graphs or quaternions, two areas that were very hard to grasp for us while we were familiarizing ourselves with the reference engines. The wide variety of facades and helper classes further simplified our development process. The code metrics of our tests have shown that half the amount of code is sufficient to perform the exact same basic operations as with other graphics engines.
+
+	The performance of the library is extremely close to that of the original Ogre3d library in most cases. This gap started growing as we started using more primitive objects in our test scenes. This does not come as a surprise, as the whole library was developed for the communication of very abstract concepts.
+	
+	\section{Future Work}
+
+		We had specifically chosen to cover a very small area of the graphics domain, as the complete domain is huge. Subdividing \classname{Model}s to expose their components -- like meshes or shaders -- is one area that could be interesting. Another approach would be adding interactivity and sound to the library, this could even be sufficient to provide a very simple platform for game development.
+
+		On the other hand, the interaction between PURGE and Ogre3d could be optimized. We had already seen a test case where the implementation with an additional layer can provide even better performance than the original implementation. This is actually quite easy to achieve as one could use much more complex computations in the bridging layer than a layman graphics developer could ever think of.
+
+		Another approach to the optimization could be a stronger coupling to one specific graphics engine, providing a second API to Ogre3d perhaps. PURGE as an additional software layer could be disbanded to just be a part of the rendering library it was using.
+
+		An additional idea emerged during the implementation of the decoupled renderer. The newly created abstraction layer on top of other renderers could be used as a uniform API to the underlying graphics engines. It would be possible to use this API for the comparison of different graphics libraries. This would require more elaborate implementations of the bridging layers, though.
+

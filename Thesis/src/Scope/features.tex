@@ -1,0 +1,100 @@
+\section{Features}
+
+	In order to keep the focus on the architectural design within the engine, we will implement a very limited feature set. We will use the topics covered by some introductory books on graphics engine usage to determine these features: \cite{stein2011irrlicht}, \cite{kerger2010ogre}, \cite{mathews2011panda3d}, \cite{Eberly:2006:GED:1214590} and \cite{Martz_2007}. All five books are targeted at developers without prior knowledge of graphics engines and four of them introduce the reader to the API of one specific graphics engine. Although all of them cover many more topics, the common areas can be summarized as:
+
+	\begin{smalllist}
+		\item scene graph manipulation,
+		\item camera manipulation,
+		\item lighting,
+		\item loading and manipulating objects (including meshes, materials, textures),
+		\item operations on a 2-dimensional space,
+		\item processing user input and
+		\item usage of the engine within a render loop.
+	\end{smalllist}
+
+	Other areas found in more than one of these books are:
+
+	\begin{smalllist}
+		\item picking objects,
+		\item particle effects,
+		\item loading terrain,
+		\item collision detection and
+		\item visual post-processing.
+	\end{smalllist}
+
+	Having a list of common topics in introductory books, we can now pick a set of features that will be included in PURGE.
+
+	\subsection{Renderer}
+
+		The most important decision to make first is the low-level graphics API to use. We could make use of OpenGL or DirectX, but this approach would not provide a good base for benchmark comparisons, as the rendering process is extremely complex and the required optimizations would cover much more ground than the API itself.
+
+		Instead, we will be using the API of other graphic engines. PURGE will solely handle the high-level scene layout and delegate all rendering operations to another, external renderer. This approach will allow us not only to concentrate on the API, but will further provide the ability to compare performance metrics of the resulting library to those of the unmodified renderer.
+
+		Details on the design of this architecture are provided in Section \ref{chapter:design:renderer}, whereas the implementation details can be found in Section \ref{chapter:implementation:renderer}.
+
+	\subsection{Scene Management}
+
+		First, it is important to note that all covered engines make use of scene graphs as a means of managing objects in 3-dimensional space. We will need to define a set of operations we want to support on the nodes of this scene graph. The common properties of the above graphics engines are
+
+		\begin{smalllist}
+			\item location,
+			\item rotation and
+			\item scale.
+		\end{smalllist}
+		
+		Changing the \termdef{Location} of an object ``moves'' the object by a given amount. The \termdef{Rotation} does not change its location per se, but moves all points of an object around an axis in a circular manner.
+
+		The \termdef{Scale} of an object is defined as adjusting the distance of each point of an object to a given point of reference by a scalar. The scale is defined separately for each coordinate axis and can be negative. The complete scale can thus be defined by a tuple of three scalars, one for the scale of each coordinate axis. This implicitly defines a mirroring feature: Scaling by \vect{1}{1}{-1} results in the object being everted along the Z-axis.
+
+	\subsection{Lights}
+
+		Lighting is the feature that affects the realism of a scene the most. As implementing a decent lighting model would go way beyond the scope of this thesis, we will use an extremely simplified model. The light sources in the final library will be defined by
+
+		\begin{smalllist}
+			\item a specular color,
+			\item a diffuse color and
+			\item a linear attenuation value.
+		\end{smalllist}
+
+		These parameters define the ``behavior'' of light rays which are emitted from a light source. Another component of light sources is the direction these rays are emitted towards. The types of light present in most engines are
+
+		\begin{smalllist}
+			\item point lights,
+			\item spot lights,
+			\item directional light and
+			\item a single ambient light.
+		\end{smalllist}
+
+		The first two light sources -- point and spot lights -- can be integrated into the scene as tangible objects. They can be positioned, rotated and scaled as defined by the scene node operations above. Although rotating a point light has no visual effect on the output, it is possible that the rotation has an effect on other objects that are attached to this light source, as we will discuss in Section \ref{chapter:design:scenegraph}.
+
+		The other two light sources -- directional and ambient lights -- are not integrated into the scene graph, but rather defined outside of it as global illumination parameters. As these light sources do not have a single point as origin, they do not have any attenuation either. The sun is a good example of a directional light source that emits light in a single perceived direction, and has no significant attenuation. The ambient light can be thought of as the illumination resulting from diffuse reflections within the scene.
+
+		The design of the light classes can be found in Section \ref{chapter:design:scenegraph}.
+
+	\subsection{Models}
+
+		The final area to be covered is the loading of models into the scene. Although every graphics engine supports various formats, each of them supports reading a geometric model from external resources - most commonly files. Our reference engines are not limited to models when loading entities from files. They have own scripting languages or exporters that can be used to define other object types that can be loaded into the scene. These entities are not necessarily handled by the engine, they might as well be processed by plug-ins. Some examples include
+		
+		\begin{smalllist}
+			\item light sources,
+			\item billboard effects,
+			\item particle effects,
+			\item dynamically generated models (trees, for example),
+			\item terrain and
+			\item sky boxes.
+		\end{smalllist}
+
+		To cope with this variety of entities, the object model of PURGE will not distinguish effects from predefined or dynamically generated models. All loadable objects are treated equally. This decision has one important implication: The resulting library will not be able to manipulate these objects. It is capable of triggering the loading of an object by its name, but incapable of altering an object that was loaded this way. This fact further implies that light sources integrated as ``models'' are indistinguishable from other objects and cannot be modified at a later time.
+
+\section{Excluded Features}
+
+	To further define the boundaries of the engine, we will establish another list of explicitly excluded features; especially since several features not covered in this thesis might be perceived as inherent features of a graphics engine.
+
+	\begin{smalllist}
+		\item Rendering to anything except the screen: Rendering to the screen is assumed to be the primary concern of a developer making use of such a simplistic API,
+		\item 2d objects: Neither the rendering of menus, nor any other two-dimensional overlays are covered in this thesis. The focus will be solely on the management of the three-dimensional scene.
+		%\item Interaction: The resulting engine is not able to process any user input.
+			%Management of user input is another broad topic that is 
+			%There is just one exception to this rule: it can react to the closing of a render window.
+	\end{smalllist}
+

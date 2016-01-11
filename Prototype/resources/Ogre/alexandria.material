@@ -1,0 +1,24 @@
+
+material main_mai
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.462745 0.305882 0.113725 1
+			diffuse 0.462745 0.305882 0.113725 1
+			specular 0 0 0 1 1
+			cull_hardware none
+			cull_software none
+
+			texture_unit
+			{
+				texture main_mai.jpg
+			}
+		}
+
+	}
+
+}
+
+

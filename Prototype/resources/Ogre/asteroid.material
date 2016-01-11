@@ -1,0 +1,23 @@
+
+material Asteroid
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.588 0.588 0.588 1
+			diffuse 0.588 0.588 0.588 1
+			specular 0.045 0.045 0.045 1 20
+
+			texture_unit
+			{
+				texture Asteroid.jpg
+				transform 0.0208333 0 0 0 0 0.0208333 0 0 0 0 1 0 0 0 0 1
+			}
+		}
+
+	}
+
+}
+
+

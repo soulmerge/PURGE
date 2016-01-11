@@ -1,0 +1,10 @@
+\section{Reference Engines}
+
+	Throughout the thesis, we will have other graphics engines as reference implementations and API examples. We have chosen three different engines with varying aims as such reference engines:
+
+	\begin{smalllist}
+		\item OpenSceneGraph: This engine features a very powerful but complex scene graph implementation. The complete design philosophy is focused on the scene graph, the data structure managing the objects within the scene. This data structure is very important in modern graphics engines and will be explained a bit more in the next chapter. The API of the engine itself is targeted at developers with experience in the graphics domain and it is quite complex, requiring good knowledge of the math behind the scenes. An introduction to the engine can be found in \cite{OpenSceneGraph22}.
+		\item Panda3d: Initially produced by Disney’s VR Studio, this engine has become an open source project that is still used in commercial projects of Disney\footnote{\emph{Toontown} (http://toontown.go.com/) and \emph{Pirates of the Caribbean online} (http://piratesonline.go.com/welcome) being two examples}. The engine itself is developed using C++, but the engine comes with a python interface allowing rapid prototyping without the need for recompilation \cite{Goslin:2004:PGE:1032275.1032359}. We have found that it has indeed a very clean and simple API that allows the creation of simple scenes with few commands.
+		\item Ogre3d: A quite popular open source graphics engine that was used in several commercial games. According to its web page, it was ``designed to make it easier and more intuitive for developers to produce applications utilizing hardware-accelerated 3D graphics''\footnote{http://www.ogre3d.org/about}. Although the API is quite verbose, it has a very clean architecture and good documentation.
+	\end{smalllist}
+

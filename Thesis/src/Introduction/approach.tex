@@ -1,0 +1,12 @@
+\section{Approach}
+
+	Since modern graphics engines cover a large range of topics, we will first select a sub-set of features of common graphics engines that we will support in our library. To compose this list of features, we will need a set of use cases which should cover the most common usages of the API when starting a project from scratch. These use cases will be implemented as tests at the end of the project.
+
+	In the next step, we will create a list of graphics engines to be used as reference implementations throughout the design process. This list of \emph{reference engines} will cover projects with different design philosophies and project goals to avoid a homogeneous basis for comparisons. The selected engines must provide the complete feature list composed in the previous step.
+
+	We will then analyze the implementations of the chosen features in those reference engines and come up with initial architectural ideas. Those first attempts at the design will be refined in further chapters until we have a working implementation.
+
+	In order to obtain a fair base for benchmark comparisons, the library will not include any rendering by itself. All rendering operations will instead be delegated to other graphics engines by the PURGE library. The engine that is responsible for the rendering process (called \classname{Renderer} in the final API) will then be integrated at run-time. Although this part of the application is interchangeable - there could be several different renderers using different graphics engines - we will only be using Ogre3d for this purpose.
+
+	We will eventually evaluate the usability of the resulting API using a number of test scenes. The scenes will be implemented twice - once with and once without usage of the API. The improvement will be measured by the lines of code, the number of function calls, as well as the number of \emph{distinct} function calls to the API, as some operations might require multiple calls that could be reduced to a single one. Furthermore, a performance benchmark will disclose the impact of the added software layer on the test scenes.
+

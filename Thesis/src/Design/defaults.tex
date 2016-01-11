@@ -1,0 +1,14 @@
+Since the aim of this thesis is to provide an API usable without domain-specific knowledge of computer graphics, the API will try to hide as many domain-specific aspects of graphics engine usage as possible. It will need to predict some intentions of its users. For example, the library will automatically create a render window if none was created by the user before the render loop was entered. More such details are summarized in Section \ref{chapter:implementation:loop}.
+%It will allow attaching a camera to a render window, implicitly creating a viewport with maximum width and height during this operation.
+
+It will further try not to hide away such implementation details completely, giving more experienced developers the level of control available in other graphics engines. This approach effectively creates an API that is usable on two levels:
+
+\begin{smalllist}
+	\item as a complex, feature-rich graphics engine, and
+	\item as a simplified engine with many default parameters and operations.
+\end{smalllist}
+
+The driving force behind any decisions during the design process was the principle of least astonishment\cite{Saltzer:2009:PCS:1594884}. The adopting developers are assumed to be developers that have very little or no prior knowledge of implementing graphics applications, which implies that some behaviors of the resulting engine might still be unexpected to those knowledgeable in this domain. An experienced developer might want to enter the render loop without any active render windows, for example.
+
+To support these operations, all automatic behavior will be modeled to be suppressible. It is still possible to start the main rendering loop without any target to render to if this is the actual intent. But, where other engines would insist on a choice -- and would probably abort execution due to a lack thereof -- PURGE instead tries to make that choice for the developer. This naturally means that the choice might not be the right one for users familiar with this domain.
+

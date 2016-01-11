@@ -1,0 +1,3 @@
+ADD_SUBDIRECTORY(Ogre-1.7)
+# ADD_SUBDIRECTORY(OpenSceneGraph-2.8/Graphics)
+
